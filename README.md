@@ -1,1 +1,1 @@
-I have completed the entire project in my local machine and then I have added it to the repo, so that I could not do multiple commits.e to time constraints I had, I just kept the code simple. Also I have added the screenshot "Testrun.png" of the test in the repo for your reference.
+I have completed the entire project in my local machine and then I have added it to the repo, so that I could not do multiple commits. Due to time constraints I had, I just kept the code simple. Also I have added the screenshot "Testrun.png" of the test in the repo for your reference.
