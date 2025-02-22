@@ -11,8 +11,18 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class SignUp {
+	
 	WebDriver driver;
 	WebDriverWait wait;
+	
+	@FindBy(id = "email")
+	private WebElement sign_in_email;
+	
+	@FindBy(id = "pass")
+	private WebElement sign_in_password;
+	
+	@FindBy(id = "send2")
+	private WebElement sign_in_button;
 
 	@FindBy(id = "firstname")
 	private WebElement firstName;
@@ -110,6 +120,19 @@ public class SignUp {
 
 	public String getPasswordConfirmationError() {
 		return passwordConfirmationError.getText();
+	}
+	
+	public void enterSignInEmail(String emailValue) {
+		sign_in_email.sendKeys(emailValue);
+	}
+
+	public void enterSignInPassword(String pwd) {
+		sign_in_password.sendKeys(pwd);
+	}
+	
+	public void clickSignIn() {
+		sign_in_button.click();
+		
 	}
 
 }

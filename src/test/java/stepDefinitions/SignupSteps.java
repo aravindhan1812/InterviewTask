@@ -13,14 +13,23 @@ public class SignupSteps {
 	WebDriver driver;
 	SignUp signupPage;
 	WebDriverWait wait;
+	String url;
 
-	@Given("I am on the signup page")
-	public void i_am_on_the_signup_page() {
+	@Given("I am on the {string} page")
+	public void i_am_on_the_signup_page(String page) {
 		driver = new ChromeDriver();
 		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(20));
 		driver.manage().window().maximize();
 		wait = new WebDriverWait(driver, Duration.ofSeconds(30));
-		driver.get("https://magento.softwaretestingboard.com/customer/account/create/");
+		
+		if(page.equalsIgnoreCase("signup")) {
+			url = "https://magento.softwaretestingboard.com/customer/account/create/";
+			
+		}
+		else if(page.equalsIgnoreCase("signin")) {
+			url = "https://magento.softwaretestingboard.com/customer/account/login/referer/aHR0cHM6Ly9tYWdlbnRvLnNvZnR3YXJldGVzdGluZ2JvYXJkLmNvbS8%2C/";
+		}
+		driver.get(url);
 		signupPage = new SignUp(driver);
 	}
 
@@ -56,14 +65,30 @@ public class SignupSteps {
 	@When("I enter a unique email")
 	public void i_enter_unique_email() {
 		String uniqueEmail = "test" + System.currentTimeMillis() + "@test.com";
+		System.out.println(uniqueEmail);
 		signupPage.enterEmail(uniqueEmail);
 	}
 
+	@When("I enter {string} as signIn email")
+	public void i_enter_signIn_email(String email) {
+		signupPage.enterSignInEmail(email);
+	}
+
+	@When("I enter {string} as signIn pass")
+	public void i_enter_signIn_password(String pass) {
+		signupPage.enterSignInPassword(pass);
+	}
+	
+	@When("I click signIn button")
+	public void i_signIn_button() {
+		signupPage.clickSignIn();
+	}
+	
 	@When("I enter {string} as email")
 	public void i_enter_email(String email) {
 		signupPage.enterEmail(email);
 	}
-
+	
 	@When("I enter an existing email")
 	public void i_enter_existing_email() {
 		signupPage.enterEmail("existinguser@test.com");
@@ -94,6 +119,12 @@ public class SignupSteps {
 	@Then("I should be redirected to the account dashboard")
 	public void i_should_be_redirected_to_the_account_dashboard() {
 		Assert.assertTrue(driver.getCurrentUrl().contains("customer/account"));
+		driver.quit();
+	}
+	
+	@Then("I should be redirected to the Home page")
+	public void i_should_be_redirected_to_the_home_page() {
+		Assert.assertTrue(driver.getTitle().contains("Home Page"));
 		driver.quit();
 	}
 
